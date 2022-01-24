@@ -1,33 +1,24 @@
 package contacts;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 public class ContactCard {
-    private String firstName;
-    private String lastName;
-    private String phoneNumber;
+    public Person person;
+    public Organization organization;
+    String type;
+
+    public ContactCard(String type, Person person) {
+        this.type = type;
+        this.person = person;
+    }
+    public ContactCard(String type, Organization organization) {
+        this.type = type;
+        this.organization = organization;
+    }
 
     @Override
     public String toString() {
-        return firstName + " " + lastName + ", " + phoneNumber;
-    }
-
-    public ContactCard(){
-    }
-
-    public void setFirstName(String firstName) { this.firstName = firstName;}
-
-    public void setLastName(String lastName) { this.lastName = lastName;}
-
-    public void setPhoneNumber(String phoneNumber) {
-        Pattern pattern = Pattern.compile("^\\+?(\\(\\w+\\)|\\w+[ -]\\(\\w{2,}\\)|\\w+)([ -]\\w{2,})*");
-        Matcher matcher = pattern.matcher(phoneNumber);
-        if (matcher.matches()) {
-            this.phoneNumber = phoneNumber;
-        }else {
-            System.out.println("Wrong number format!");
-            this.phoneNumber = "[no number]";
+        if (type.equals("person")) {
+            return person.toString();
         }
+        return organization.toString();
     }
 }
